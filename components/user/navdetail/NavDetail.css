@@ -1,0 +1,33 @@
+.navdetail{
+    height: 100px;
+    background-color: #F9F1E7;
+    .container{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .navdetail-block{
+            display: flex;
+            .block__item1{
+                display: flex;
+                align-items: center;
+                gap: 25px;
+                border-right: 2px solid #9F9F9F;
+                padding-right: 25px;
+                a{
+                    text-decoration: none;
+                    color: #9F9F9F;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+
+            }
+            .block__item2{
+                padding-left: 25px;
+                span{
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+            }
+        }
+    }
+}

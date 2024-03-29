@@ -1,11 +1,9 @@
 'use client'
 
-
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { SubmitHandler, useForm } from "react-hook-form"
-
-
+import Swal from "sweetalert2"
 
 type FormSingup = {
     email: string,
@@ -19,19 +17,29 @@ const SignUp = () => {
         mutationFn: async (data: FormSingup) => {
             try {
                 const res = await axios.post("/api/users", data)
+                Swal.fire({
+                    title: 'Thành công',
+                    text: res.data.message,
+                    icon: 'success',
+                })
                 console.log(res);
-               
-            } catch (error) {
-                console.log(error);
-               
+                return res
+            } catch (error: any) {
+                Swal.fire({
+                    title: 'Lỗi ',
+                    text: error.response.data,
+                    icon: 'error',
+                })
+                return error
             }
         },
-        onSuccess: () => {
-            reset();
-            
+        onSuccess: (data: any) => {
+            if (data.status === 200) {
+                reset();
+            }
         }
     })
-
+    
     const onSubmit: SubmitHandler<FormSingup> = (data: FormSingup) => {
         mutate(data)
     }

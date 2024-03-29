@@ -1,0 +1,263 @@
+.productdetail {
+    border-bottom: 1px solid #D9D9D9;
+    .container {
+        display: flex;
+        padding-top: 50px;
+
+        >* {
+            width: 50%;
+
+        }
+
+        .section-list-img {
+            display: grid;
+            grid-template-columns: 1fr 5fr;
+            gap: 10px;
+
+            .img-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .img-list__item {
+                    width: 76px;
+                    height: 80px;
+                    overflow: hidden;
+                    position: relative;
+                    background-color: #F9F1E7;
+                    border-radius: 10px;
+
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                    }
+                }
+            }
+
+            .img__main {
+                width: 423px;
+                height: 500px;
+                overflow: hidden;
+                position: relative;
+                background-color: #F9F1E7;
+                border-radius: 10px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+        }
+
+        .section-list-infor {
+            display: flex;
+            flex-direction: column;
+
+            .infor__title {
+                font-size: 42px;
+                font-weight: 400;
+
+            }
+
+            .infor__price {
+                font-size: 24px;
+                font-weight: 500;
+                color: #9F9F9F;
+            }
+
+            .infor-evaluate {
+                padding-top: 15px;
+                display: flex;
+                align-items: center;
+
+                .infor-star {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding-right: 20px;
+                    border-right: 1px solid #9F9F9F;
+                }
+
+                .infor__view {
+                    padding-left: 20px;
+                    font-size: 13px;
+                    font-weight: 400;
+                    color: #9F9F9F;
+
+                }
+            }
+
+            .infor__desc {
+                width: 75%;
+                padding-top: 15px;
+                font-size: 13px;
+                font-weight: 400;
+            }
+
+            .infor-size {
+                padding-top: 15px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .size__title {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #9F9F9F;
+                }
+
+                .size-list {
+                    display: flex;
+                    gap: 15px;
+
+                    .size__item {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 5px;
+                        border: none;
+                        background-color: #F9F1E7;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+
+                    > :first-child {
+                        background-color: #B88E2F;
+                        color: #ffffff;
+                    }
+                }
+
+                
+            }
+
+            .infor-color {
+                padding-top: 15px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .color__title {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #9F9F9F;
+                }
+
+                .color-list {
+                    display: flex;
+                    gap: 15px;
+
+                    .color__item {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        border: none;
+                        background-color: black;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+
+                    > :first-child {
+                        background-color: #816DFA;
+                    }
+
+                    > :last-child{
+                        background-color: #B88E2F;
+
+                    }
+                }
+
+                
+            }
+
+            .actions{
+                display: flex;
+                gap: 10px;
+                padding-top: 35px;
+                width: 100%;
+                border-bottom: 1px solid #D9D9D9;
+                .actions-quantity{
+                    display: flex;
+                    align-items: center;
+                    width: 123px;
+                    height: 64px;
+                    border: 1px solid #9F9F9F;
+                    border-radius: 10px;
+
+                    > *{
+                        width: 33.333%;
+                    }
+
+                    button{
+                        border: none;
+                        background-color: #ffffff;
+                        font-size: 16px;
+                        font-weight: 400;
+                    }
+
+                    input{
+                        border: none;
+                        background-color: #ffffff;
+                        font-size: 16px;
+                        color: black;
+
+                    }
+                    
+                }
+
+                .actions-addcart{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 70px;
+                    button{
+                        width: 215px;
+                        height: 64px;
+                        border-radius: 15px;
+                        background-color: #ffffff;
+                        border: 1px solid black;
+                        font-size: 20px;
+                        font-weight: 400;
+                    }
+
+                    
+                }
+            }
+
+            .infor-more{
+                padding-top: 50px;
+                padding-bottom: 100px;
+
+                table{
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: #9F9F9F;
+                    width: 60%;
+                    
+                    tbody{
+                        tr{
+                            td{
+                                padding: 5px 0;
+                            }
+                            >:first-child{
+                                padding-right: 10px;
+                            }
+                            >:last-child{
+                                padding-left: 10px;
+                            }
+                        }
+
+                        >:last-child{
+                            >:last-child{
+                                display: flex;
+                                justify-content: start;
+                                gap: 20px;
+                                align-items: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

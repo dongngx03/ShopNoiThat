@@ -1,0 +1,90 @@
+.navshop{
+    width: 100%;
+    height: 100px;
+   
+    background-color: #F9F1E7;
+    .container{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        .navshop-block-left{
+            display: flex;
+            justify-content: start;
+            .block-item1{
+                display: flex;
+                gap: 25px;
+                border-right: 1px solid #9F9F9F;
+                align-items: center;
+                padding-right: 25px;
+                a{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    text-decoration: none;
+                    color: black;
+                }
+            }
+            .block-item2{
+                display: flex;
+                align-items: center;
+                padding-left: 20px;
+            }
+        }
+        .navshop-block-right{
+            display: flex;
+            justify-content: end;
+            gap: 25px;
+            .block-item1{
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                span{
+                    font-size: 20px;
+                    font-weight: 400;
+                }
+                input{
+                    width: 55px;
+                    height: 55px;
+                    border: none;
+                    background-color: #ffffff;
+                    
+                }
+                input::placeholder{
+                    font-size: 20px;
+                    font-weight: 400;
+                    text-align:  center;
+                    color: #9F9F9F;
+                    
+                }
+
+            }
+
+            .block-item2{
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                span{
+                    font-size: 20px;
+                    font-weight: 400;
+                }
+                input{
+                    width: 188px;
+                    height: 55px;
+                    border: none;
+                    background-color: #ffffff;
+                    
+                }
+                input::placeholder{
+                    font-size: 20px;
+                    font-weight: 400;
+                    text-align:  center;
+                    color: #9F9F9F;
+                    
+                }
+            }
+        }
+        > *{
+            width: 50%;
+        }
+    }
+}
