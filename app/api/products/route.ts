@@ -13,7 +13,7 @@ export async function GET() {
         return NextResponse.json({ error: error.message })
     }
 }
-export async function POST(req : Response) {
+export async function POST(req : Request) {
     await dbConnect();
 
     try {

@@ -4,6 +4,7 @@ export interface Iproduct extends Document {
     name: string;
     price: number;
     description: string;
+    image: []
 }
 
 const productSchema: Schema = new mongoose.Schema(
@@ -19,7 +20,15 @@ const productSchema: Schema = new mongoose.Schema(
         description: {
             type: String,
             required: true
+        },
+        image: {
+            type: Array
         }
+
+    },
+    {
+        timestamps: true,
+        versionKey: false
     }
 )
 
