@@ -3,6 +3,7 @@ import Link from "next/link"
 import "./Header.css"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
+import Cookies from "js-cookie"
 
 
 const Header = () => {
@@ -19,6 +20,8 @@ const Header = () => {
 
     const Logout = () => {
         localStorage.clear();
+        // delete token
+        Cookies.remove('token')
         toast("Logout successfully !!!", {
             description: "Đợi 1 lát để ra trang đăng nhập",
             action: {

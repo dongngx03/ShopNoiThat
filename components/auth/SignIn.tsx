@@ -1,11 +1,11 @@
 'use client'
-import { toast } from "sonner"
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import Link from "next/link"
 import { SubmitHandler, useForm } from "react-hook-form"
 import Swal from "sweetalert2"
 import { Button } from "../ui/button"
+import Cookies from 'js-cookie'; 
 
 export type FormSignIn = {
     email: string,
@@ -18,20 +18,23 @@ const SignIn = () => {
     const { mutate, isPending } = useMutation({
         mutationFn: async (data: FormSignIn) => {
             try {
-                const res = await axios.post('api/auth', data)
+                const res = await axios.post('api/auth/sign-in', data)
                 console.log(res);
                 if (res.status === 200) {
-                    localStorage.setItem('user', JSON.stringify(res.data))
+                    // save user information locastrorage
+                    localStorage.setItem('user', JSON.stringify(res.data?.user))
+                    // save token cookie
+                    Cookies.set('token', res.data?.token);
                     Swal.fire({
                         title: 'Thành công',
                         text: "đăng nhập thành công",
                         icon: 'success',
                     })
                         .then(() => {
-                            if(res.data?.role === false) {
+                            if (res.data?.role === false) {
                                 window.location.href = "/home"
-                            }else {
-                                window.location.href = "/admin-productlist"
+                            } else {
+                                window.location.href = "/admin/product/list"
                             }
                         })
                 }

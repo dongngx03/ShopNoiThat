@@ -2,6 +2,7 @@ import dbConnect from "@/app/lib/dbConnect";
 import User from "@/app/model/User";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 // login
 export async function POST(req: Request) {
@@ -19,8 +20,9 @@ export async function POST(req: Request) {
             return new NextResponse("mật khẩu không trùng khớp", { status: 400 })
         }
 
+        const token = jwt.sign({ id: checkEmail._id, role: checkEmail.role }, "decode_key", { expiresIn: "1d" })
         checkEmail.password = undefined;
-        return NextResponse.json(checkEmail)
+        return NextResponse.json({ user: checkEmail, token: token })
     } catch (error: any) {
         return NextResponse.json({
             error: error.message

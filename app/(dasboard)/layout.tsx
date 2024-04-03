@@ -6,8 +6,7 @@ const DasboardLayout = ({ children }: { children: ReactNode }) => {
     return (
         <div className="w-full h-screen">
             <Aside />
-            {children}
-            
+            {children}  
         </div>
     )
 }
