@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema } from "mongoose";
 
+
 export interface Iproduct extends Document {
     name: string;
     price: number;
@@ -23,6 +24,17 @@ const productSchema: Schema = new mongoose.Schema(
         },
         image: {
             type: Array
+        },
+        color: {
+            type: Array
+        },
+        quantity: {
+            type: Number,
+            required: true
+        },
+        category_id: {
+            type: Schema.Types.ObjectId,
+            ref: "Categories"
         }
 
     },
@@ -31,6 +43,8 @@ const productSchema: Schema = new mongoose.Schema(
         versionKey: false
     }
 )
+
+
 
 const Product = mongoose.models.Product || mongoose.model<Iproduct>("Product", productSchema)
 

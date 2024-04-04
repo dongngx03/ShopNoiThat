@@ -5,10 +5,12 @@ import Joi from "joi"
 import Product from "@/app/model/Product";
 
 const productValid = Joi.object({
-    name: Joi.string().required().empty(),
+    name: Joi.string().required().empty().min(10).max(100),
     price: Joi.number().required().empty().min(1000000).max(1000000000),
-    description: Joi.string().required().empty(),
-    image: Joi.array().empty().required()
+    description: Joi.string().required().empty().min(20),
+    image: Joi.array().empty().required(),
+    color : Joi.array().empty().required(),
+    quantity : Joi.number().required().min(10)
 })
 
 
@@ -17,8 +19,8 @@ export async function POST(req: Request) {
         await dbConnect();
         // authenication 
         const isAuthenticated = await CheckAdmin(req);
-        
-        if (isAuthenticated === true) {
+
+        if (isAuthenticated) {
             const data = await req.json();
             const { error } = productValid.validate(data, { abortEarly: false });
 
@@ -27,7 +29,7 @@ export async function POST(req: Request) {
                 return NextResponse.json({
                     success: false,
                     error: errors
-                })
+                }, { status: 400 })
             }
 
             const newProduct = await Product.create({
@@ -39,20 +41,20 @@ export async function POST(req: Request) {
                     success: true,
                     newProduct: newProduct,
                     message: "create product successfully!"
-                })
+                }, { status: 201 })
             } else {
                 return NextResponse.json({
                     success: false,
                     message: "failed to create the product , please try again!"
-                })
+                }, { status: 404 })
             }
 
         } else {
             return NextResponse.json({
                 success: false,
                 message: "you are not authorized.",
-                auth : isAuthenticated
-            })
+                auth: isAuthenticated
+            }, { status: 403 })
         }
     } catch (error: any) {
         return NextResponse.json({

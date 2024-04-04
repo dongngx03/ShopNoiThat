@@ -1,26 +1,43 @@
 'use client'
-
 import { toast } from "sonner"
 import { Button } from "../ui/button"
 import useProductMutaition from "@/utils/useProductMutation"
+import * as yup from 'yup';
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
+
 
 
 export type TProduct = {
     name: string,
     price: number,
     description: string,
-    img1: string,
-    img2: string,
-    img3: string,
-    img4: string,
+    image: string,
+    color: string,
+    quantity: number
 }
 
 const AddProduct = () => {
-    const { register, handleSubmit, onSubmit } = useProductMutaition({
+    const schema = yup
+        .object({
+            name: yup.string().required().min(10).max(100),
+            price: yup.number().required().min(1000000).max(1000000000),
+            description: yup.string().required().min(20),
+            color: yup.string().required(),
+            quantity: yup.number().required().min(10)
+
+        })
+        .required()
+
+
+    const { register, handleSubmit, onSubmit, errors } = useProductMutaition({
         action: "CREATE",
         onSuccess: () => {
-            toast('thành công')
-        }
+            toast('add product successfully!')
+            setTimeout(() => window.location.href = "/admin/product/list", 2000)
+        },
+        resolver: schema
     })
 
     return (
@@ -30,98 +47,69 @@ const AddProduct = () => {
 
                     <form className=" mx-auto" onSubmit={handleSubmit(onSubmit)}>
                         <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("name", { required: true })}
+                            <Label htmlFor="name">Name</Label>
+                            <Input
+                                id="name"
+                                type="text"
+                                placeholder="Name"
+                                {...register("name")}
                             />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                ProductName
-                            </label>
+                            {errors.name && <span className="text-xs text-red-600">{errors.name.message}</span>}
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("price", { required: true })}
+                            <Label htmlFor="Price">Price</Label>
+                            <Input
+                                id="Price"
+                                type="number"
+                                placeholder="Price"
+                                {...register("price")}
                             />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Price
-                            </label>
+                            {errors.price && <span className="text-xs text-red-600">{errors.price.message}</span>}
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("description", { required: true })}
+                            <Label htmlFor="Description">Description</Label>
+                            <Textarea
+                                id="Description"
+                                placeholder="Description"
+                                {...register("description")}
                             />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                description
-                            </label>
+                            {errors.description && <span className="text-xs text-red-600">{errors.description.message}</span>}
+                        </div>
+
+                        <div className="relative z-0 w-full mb-5 group">
+                            <Label htmlFor="picture">Picture</Label>
+                            <Input
+                                id="picture"
+                                type="file"
+                                multiple
+                                {...register("image")}
+                            />
+                            {errors.image && <span className="text-xs text-red-600">{errors.image.message}</span>}
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("img1", { required: true })}
+                            <Label htmlFor="color">Color</Label>
+                            <Input
+                                id="color"
+                                type="text"
+                                placeholder="color"
+                                {...register("color")}
                             />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Image_URL1
-                            </label>
+                            {errors.color && <span className="text-xs text-red-600">{errors.color.message}</span>}
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("img2", { required: true })}
+                            <Label htmlFor="quantity">Quantity</Label>
+                            <Input
+                                id="quantity"
+                                type="number"
+                                placeholder="quantity"
+                                {...register("quantity")}
                             />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Image_URL2
-                            </label>
+                            {errors.quantity && <span className="text-xs text-red-600">{errors.quantity.message}</span>}
                         </div>
-                        <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("img3", { required: true })}
-                            />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Image_URL3
-                            </label>
-                        </div>
-                        <div className="relative z-0 w-full mb-5 group">
-                            <input type="text"
-                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                                placeholder=" "
-                                required
-                                {...register("img4", { required: true })}
-                            />
-                            <label
-                                htmlFor=""
-                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
-                                Image_URL4
-                            </label>
-                        </div>
+
                         <Button>Add Product</Button>
                     </form>
+
                 </div>
             </div>
         </div>
