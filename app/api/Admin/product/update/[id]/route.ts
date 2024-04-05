@@ -5,10 +5,13 @@ import Joi from "joi";
 import { NextResponse } from "next/server";
 
 const productValid = Joi.object({
-    name: Joi.string().empty(),
-    price: Joi.number().empty().min(1000000).max(1000000000),
-    description: Joi.string().empty(),
-    image: Joi.array().empty()
+    name: Joi.string().required().empty().min(10).max(100),
+    price: Joi.number().required().empty().min(1000000).max(1000000000),
+    description: Joi.string().required().empty().min(20),
+    image: Joi.array(),
+    color : Joi.string().empty().required(),
+    quantity : Joi.number().required().min(10),
+    category_id : Joi.string().required()
 })
 
 export async function PUT(req: Request, context: any) {

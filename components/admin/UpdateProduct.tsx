@@ -8,19 +8,11 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { useQuery } from "@tanstack/react-query";
 import categoriesApi from "@/service/categoriesApi";
+import useProductQurey from "@/utils/useProductQuery";
 
-export type TProduct = {
-    id?: string,
-    name: string,
-    price: number,
-    description: string,
-    image: string,
-    color: string,
-    quantity: number,
-    category_id: string
-}
 
-const AddProduct = () => {
+const UpdateProduct = ({ id }: { id: string }) => {
+    const ProductUpdate = useProductQurey(id)
     const schema = yup
         .object({
             name: yup.string().required().min(10).max(100),
@@ -35,11 +27,10 @@ const AddProduct = () => {
 
 
     const { register, handleSubmit, onSubmit, errors } = useProductMutaition({
-        action: "CREATE",
+        action: "UPDATE",
         onSuccess: () => {
-            toast('add product successfully!')
-            toast("add product successfully!", {
-                description: "Bạn vừa thêm mới một cái thành công rồi đấy!",
+            toast("update product successfully!", {
+                description: "Bạn vừa cập nhật cái sản phẩm kia thành công rồi đấy!",
                 action: {
                     label: "Ẩn",
                     onClick: () => console.log("Ẩn"),
@@ -65,6 +56,7 @@ const AddProduct = () => {
                 <div className="w-full h-screen relative overflow-auto p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
 
                     <form className=" mx-auto" onSubmit={handleSubmit(onSubmit)}>
+                        <input type="hidden" value={id} {...register("id")} />
                         <div className="relative z-0 w-full mb-5 group">
                             <Label htmlFor="name">Name</Label>
                             <Input
@@ -72,6 +64,7 @@ const AddProduct = () => {
                                 type="text"
                                 placeholder="Name"
                                 {...register("name")}
+                                defaultValue={ProductUpdate?.data?.data?.name}
                             />
                             {errors.name && <span className="text-xs text-red-600">{errors.name.message}</span>}
                         </div>
@@ -81,6 +74,7 @@ const AddProduct = () => {
                                 id="Price"
                                 type="number"
                                 placeholder="Price"
+                                defaultValue={ProductUpdate?.data?.data?.price}
                                 {...register("price")}
                             />
                             {errors.price && <span className="text-xs text-red-600">{errors.price.message}</span>}
@@ -90,6 +84,7 @@ const AddProduct = () => {
                             <Textarea
                                 id="Description"
                                 placeholder="Description"
+                                defaultValue={ProductUpdate?.data?.data?.description}
                                 {...register("description")}
                             />
                             {errors.description && <span className="text-xs text-red-600">{errors.description.message}</span>}
@@ -103,13 +98,14 @@ const AddProduct = () => {
                                 multiple
                                 {...register("image")}
                             />
-                            {errors.image && <span className="text-xs text-red-600">{errors.image.message}</span>}
+                            <span className="text-xs text-red-600">Nếu không muốn cập nhật lại ảnh xin để trống trường này </span>
                         </div>
                         <div className="relative z-0 w-full mb-5 group">
                             <Label htmlFor="color">Color</Label>
                             <Input
                                 id="color"
                                 type="color"
+                                defaultValue={ProductUpdate?.data?.data?.color}
                                 {...register("color")}
                             />
                             {errors.color && <span className="text-xs text-red-600">{errors.color.message}</span>}
@@ -120,6 +116,7 @@ const AddProduct = () => {
                                 id="quantity"
                                 type="number"
                                 placeholder="quantity"
+                                defaultValue={ProductUpdate?.data?.data?.quantity}
                                 {...register("quantity")}
                             />
                             {errors.quantity && <span className="text-xs text-red-600">{errors.quantity.message}</span>}
@@ -128,10 +125,11 @@ const AddProduct = () => {
                             <Label htmlFor="category">Category</Label>
                             <select
                                 {...register("category_id")}
+                                defaultValue={ProductUpdate?.data?.data?.category_id}
                                 id="category"
                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             >
-                                <option selected value={""}>Choose a country</option>
+                                <option selected value={""}>Choose a category</option>
                                 {
                                     data?.list.map((item: any, index: number) => (
                                         <option key={index} value={item?._id}>{item?.name}</option>
@@ -142,7 +140,7 @@ const AddProduct = () => {
                         </div>
 
 
-                        <Button>Add Product</Button>
+                        <Button>Update Product</Button>
                     </form>
 
                 </div>
@@ -151,4 +149,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default UpdateProduct

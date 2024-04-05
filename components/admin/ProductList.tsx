@@ -6,10 +6,13 @@ import Link from 'next/link'
 import useProductQurey from '@/utils/useProductQuery'
 import { formatNumberWithCommas } from '@/utils'
 import { Skeleton } from '../ui/skeleton'
+import { deleteProductMutation } from '@/utils/useProductMutation'
+import Swal from 'sweetalert2'
 
 const ProductList = () => {
     const [page, setPage] = useState<number>(1)
     const { data, isLoading } = useProductQurey(false, 3, page)
+    const deleteP = deleteProductMutation();
 
     console.log(data);
 
@@ -85,10 +88,12 @@ const ProductList = () => {
                                                     {index + 1}
                                                 </th>
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                    {item?.name}
+                                                    <Link href={`/detail/${item?._id}`}>
+                                                        {item?.name}
+                                                    </Link>
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    <div style={{backgroundColor : item?.color}} className={`w-[40px] h-[40px] rounded-full border`}></div>
+                                                    <div style={{ backgroundColor: item?.color }} className={`w-[40px] h-[40px] rounded-full border`}></div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <img
@@ -104,8 +109,29 @@ const ProductList = () => {
                                                     {item?.category_id?.name}
                                                 </td>
                                                 <td className="px-6 py-4 ">
-                                                    <Button variant="destructive" className='mr-2'>Delete</Button>
-                                                    <Button >update</Button>
+                                                    <Button
+                                                        variant="destructive"
+                                                        className='mr-2'
+                                                        onClick={() => {
+                                                            Swal.fire({
+                                                                title: 'Xác nhận',
+                                                                text: `Bạn có chắc muốn xóa sản phẩm ${item?.name}`,
+                                                                icon: 'question',
+                                                                confirmButtonText: 'Submit',
+                                                                cancelButtonText: 'Cancel',
+                                                            })
+                                                                .then((res) => {
+                                                                    if (res.isConfirmed) {
+                                                                        deleteP.mutate(item?._id)
+                                                                    }
+                                                                })
+                                                        }}
+                                                    >
+                                                        Delete
+                                                    </Button>
+                                                    <Button className='z-9' >
+                                                        <Link className='z-10' href={`/admin/product/update/${item?._id}`}>update</Link>
+                                                    </Button>
                                                 </td>
                                             </tr>
                                         ))
@@ -156,7 +182,7 @@ const ProductList = () => {
                                                 if (page === data?.totalPage) {
                                                     setPage(1)
                                                 } else {
-                                                    setPage(page +1)
+                                                    setPage(page + 1)
                                                 }
                                             }}
                                         >
