@@ -1,6 +1,8 @@
+'use client'
 import "./NavDetail.css"
 
-const NavDetail = () => {
+const NavDetail = ({ data }: { data: any }) => {
+
     return (
         <div>
             <nav className="navdetail">
@@ -17,7 +19,7 @@ const NavDetail = () => {
                             </svg>
                         </div>
                         <div className="block__item2">
-                            <span>Sản phẩm XNXX</span>
+                            <span>{data?.data?.data?.name}</span>
                         </div>
                     </div>
                 </div>

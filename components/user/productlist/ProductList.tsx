@@ -1,44 +1,63 @@
+'use client'
+import useProductQurey from "@/utils/useProductQuery"
 import "./ProductList.css"
+import { formatNumberWithCommas } from "@/utils"
+import Link from "next/link"
 
 const ProductList = () => {
+    const { data, isLoading } = useProductQurey(false, 10, 1)
+
     return (
         <div>
             <section className="productlist">
                 <div className="container">
                     <div className="product-list">
-                        <div className="product-item">
-                            <div className="product-image">
-                                <img src="https://images.pexels.com/photos/276534/pexels-photo-276534.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
-                                <span className="product-discount">-50%</span>
-                            </div>
 
-                            <div className="product-infor">
-                                <div className="product__name">
-                                    <a href="" className="product__link">Syltherine</a>
+                        {
+                            data?.data?.map((item: any, index: number) => (
+                                <div key={index} className="product-item">
+                                    <div className="product-image">
+                                        <img src={item?.image[0]} alt="" />
+                                        <span className="product-discount">-50%</span>
+                                    </div>
+
+                                    <div className="product-infor">
+                                        <div className="product__name">
+                                            <a href="" className="product__link">{item?.category_id?.name}</a>
+                                        </div>
+
+                                        <a href="" className="product-category">{item?.name}</a>
+                                    </div>
+
+                                    <div className="product-price">
+                                        <span className="product-price__new">
+                                            {
+                                                formatNumberWithCommas(parseInt(item?.price))
+                                            }đ
+                                        </span>
+                                        <span className="product-price__old">
+                                            <del>3.500.000đ</del>
+                                        </span>
+                                    </div>
+
+                                    <div className="product-actions">
+                                        <button className="product-action__addtocart z-10">
+                                            <Link className="z-11" href={`/detail/${item?._id}`} >
+                                                Show detail
+                                            </Link>
+                                        </button>
+
+                                        <div className="product-actions-more">
+                                            <span className="product-action__share"><i className="fa-solid fa-share-nodes"></i> Share</span>
+                                            <span className="product-action__like"><i className="fa-regular fa-heart"></i> Like</span>
+                                        </div>
+                                    </div>
                                 </div>
+                            ))
+                        }
 
-                                <a href="" className="product-category">Stylish cafe chair</a>
-                            </div>
 
-                            <div className="product-price">
-                                <span className="product-price__new">
-                                    2.500.000đ
-                                </span>
-                                <span className="product-price__old">
-                                    <del>3.500.000đ</del>
-                                </span>
-                            </div>
 
-                            <div className="product-actions">
-                                <button className="product-action__addtocart">
-                                    Add To Cart
-                                </button>
-                                <div className="product-actions-more">
-                                    <span className="product-action__share"><i className="fa-solid fa-share-nodes"></i> Share</span>
-                                    <span className="product-action__like"><i className="fa-regular fa-heart"></i> Like</span>
-                                </div>
-                            </div>
-                        </div>
 
                         <div className="product-item">
                             <div className="product-image">

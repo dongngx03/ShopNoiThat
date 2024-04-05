@@ -1,34 +1,33 @@
+import { formatNumberWithCommas } from "@/utils"
 import "./ProductDetail.css"
 
-const ProductDetail = () => {
+const ProductDetail = ({ data }: { data: any }) => {
     return (
         <div>
             <section className="productdetail">
                 <div className="container">
                     <div className="section-list-img">
                         <div className="img-list">
-                            <div className="img-list__item">
-                                <img src="https://s3-alpha-sig.figma.com/img/e8e6/980e/c9e9224b3002d53824688ecee9c882c5?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BOA6l0gi3XhMhB3pK-br-hW6rtSmrUS03kcg-P8TNDpRGkGJKcNcBraZJHE~y~YbhkZzpOHU0TrvcZDhhUqK--aAzD~H77MSeb4OgywukrNcI2apBIFoP8p5oeJTSPF2sSvUy2Y58mWfEQ00QuCcqoPHlimOfax2tXKKX9Kr4x-6-Eq2MRK7rYGQAyqYjumUNMWyo7wS7QFLsNHiyHuGRxiqX~Ks9TIu~TT5DRW3PaZOahUajbZbxWWVugS7BpKVhhnFWIVPZLMrMdR16e0HzBEAxkHZSeCAvYYQ9P8p26y0XzjBkyGKYb~2dKeVYYZFfltd5HOOkraAyi4ngOAYpw__" alt="" />
-                            </div>
-                            <div className="img-list__item">
-                                <img src="https://s3-alpha-sig.figma.com/img/e8e6/980e/c9e9224b3002d53824688ecee9c882c5?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BOA6l0gi3XhMhB3pK-br-hW6rtSmrUS03kcg-P8TNDpRGkGJKcNcBraZJHE~y~YbhkZzpOHU0TrvcZDhhUqK--aAzD~H77MSeb4OgywukrNcI2apBIFoP8p5oeJTSPF2sSvUy2Y58mWfEQ00QuCcqoPHlimOfax2tXKKX9Kr4x-6-Eq2MRK7rYGQAyqYjumUNMWyo7wS7QFLsNHiyHuGRxiqX~Ks9TIu~TT5DRW3PaZOahUajbZbxWWVugS7BpKVhhnFWIVPZLMrMdR16e0HzBEAxkHZSeCAvYYQ9P8p26y0XzjBkyGKYb~2dKeVYYZFfltd5HOOkraAyi4ngOAYpw__" alt="" />
-                            </div>
-                            <div className="img-list__item">
-                                <img src="https://s3-alpha-sig.figma.com/img/e8e6/980e/c9e9224b3002d53824688ecee9c882c5?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BOA6l0gi3XhMhB3pK-br-hW6rtSmrUS03kcg-P8TNDpRGkGJKcNcBraZJHE~y~YbhkZzpOHU0TrvcZDhhUqK--aAzD~H77MSeb4OgywukrNcI2apBIFoP8p5oeJTSPF2sSvUy2Y58mWfEQ00QuCcqoPHlimOfax2tXKKX9Kr4x-6-Eq2MRK7rYGQAyqYjumUNMWyo7wS7QFLsNHiyHuGRxiqX~Ks9TIu~TT5DRW3PaZOahUajbZbxWWVugS7BpKVhhnFWIVPZLMrMdR16e0HzBEAxkHZSeCAvYYQ9P8p26y0XzjBkyGKYb~2dKeVYYZFfltd5HOOkraAyi4ngOAYpw__" alt="" />
-                            </div>
-                            <div className="img-list__item">
-                                <img src="https://s3-alpha-sig.figma.com/img/e8e6/980e/c9e9224b3002d53824688ecee9c882c5?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=BOA6l0gi3XhMhB3pK-br-hW6rtSmrUS03kcg-P8TNDpRGkGJKcNcBraZJHE~y~YbhkZzpOHU0TrvcZDhhUqK--aAzD~H77MSeb4OgywukrNcI2apBIFoP8p5oeJTSPF2sSvUy2Y58mWfEQ00QuCcqoPHlimOfax2tXKKX9Kr4x-6-Eq2MRK7rYGQAyqYjumUNMWyo7wS7QFLsNHiyHuGRxiqX~Ks9TIu~TT5DRW3PaZOahUajbZbxWWVugS7BpKVhhnFWIVPZLMrMdR16e0HzBEAxkHZSeCAvYYQ9P8p26y0XzjBkyGKYb~2dKeVYYZFfltd5HOOkraAyi4ngOAYpw__" alt="" />
-                            </div>
+                            {
+                                data?.data?.data?.image.map((item: any, index: number) => (
+                                    <div className="img-list__item ">
+                                        <img src={item} alt="" />
+                                    </div>
+                                ))
+                            }
+
                         </div>
                         <div className="img__main">
-                            <img src="https://s3-alpha-sig.figma.com/img/2ac4/13c1/917ac944454e358f73d0af67e1f1b74e?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=VGXqfJhdHGKlr9GT-BbRl6NbRc9ItAIE~~IgzV8~xzu7xmsKI0PhYvgaxzRlc-YDr6I0XutICx7KYw-F2Yf0MuI5DmybaAGs~Pouiann6d0hSUSPEZn2zR4gNcQ-8qWdii66n0vDRw~Aewi0GtMVs7zxIjK7XHy4XxwcgbdVLQRAjy20ZDQwl3gWdhu5KKbPezpp3v1o1B2Y4lSb3O9~q4l67ArRpyXJfT1IiPNzfia~jjJ8PilOZRKT38FlBaB-APhDJ5UqAw6wjdXm2uP4PxisbcXXQ85UlPQI4Y6rFfAdxN7r3koLTvZIV4t6rt2WBKhd7l7Y2N22L3y1urfEDQ__" alt="" />
+                            <img src={data?.data?.data?.image[0]} alt="" />
                         </div>
                     </div>
 
                     <div className="section-list-infor">
-                        <span className="infor__title">Asgaard sofa</span>
+                        <span className="infor__title">{data?.data?.data?.name}</span>
                         <span className="infor__price">
-                            25.000.000đ
+                            {
+                                formatNumberWithCommas(parseInt(data?.data?.data?.price))
+                            }đ
                         </span>
                         <div className="infor-evaluate">
                             <div className="infor-star">
@@ -60,8 +59,7 @@ const ProductDetail = () => {
                         </div>
 
                         <span className="infor__desc">
-                            Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound.
-
+                            { data?.data?.data?.description}
                         </span>
 
                         <div className="infor-size">
@@ -86,13 +84,7 @@ const ProductDetail = () => {
                                 color
                             </span>
                             <div className="color-list">
-                                <button className="color__item">
-
-                                </button>
-                                <button className="color__item">
-
-                                </button>
-                                <button className="color__item">
+                                <button style={{backgroundColor : data?.data?.data?.color}} className="color__item">
 
                                 </button>
                             </div>

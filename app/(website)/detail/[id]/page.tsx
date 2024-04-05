@@ -1,16 +1,21 @@
+'use client'
 import DescDetail from "@/components/user/descdetail/DescDetail"
 import NavDetail from "@/components/user/navdetail/NavDetail"
 import ProductDetail from "@/components/user/productdetail/ProductDetail"
 import RelatedDetail from "@/components/user/relateddetail/RelatedDetail"
+import useProductQurey from "@/utils/useProductQuery"
 
 
-const DetailPage = () => {
+const DetailPage = ({ params }: { params: { id: string } }) => {
+  const { data, isLoading } = useProductQurey(params.id)
+  const more = useProductQurey(false, 4, 1)
+  
   return (
     <div>
-        <NavDetail />
-        <ProductDetail />
-        <DescDetail />
-        <RelatedDetail />
+      <NavDetail data={data} />
+      <ProductDetail data={data} />
+      <DescDetail data={data} />
+      <RelatedDetail data={more} />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import "./DescDetail.css"
 
-const DescDetail = () => {
+const DescDetail = ({ data } : { data: any}) => {
     return (
         <div>
             <section className="descdetail">
@@ -18,10 +18,10 @@ const DescDetail = () => {
 
                     <div className="section-img">
                         <div className="img__item">
-                            <img src="https://s3-alpha-sig.figma.com/img/b739/5be5/3f5927c3cf50e945c3e0f03b3206e810?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=A45QA5yyNnbUX7xQS4-FTyHiZCV870xiYfAF-uEbA-itQlQuVOoERSQfJSzh74so8UhgKWuy3l8QXc2gh-7VzmiePNR8V2DOkpLv3GueiuAGlerHDjd9fUPSAM8VDjiJOEj5WhU0s6eBg81GTe6EWmWz3ZEEzG5RvnEoNc332rkYkQmIzSO07YEQ43cSSDc6AiuPbGpvLQ86eSxMUIPG5-h2rhWPvGiJ4WEao6SLAH6MtvfDE-8mKaVvo6EmPjYz5KsioRhtCC6Og82DyW~3qiR~lWhrvKSovvbbw-YdcX1OoJXZcNdeCafyF4GnRrE94hYoh3KrfrObVnwNsh~StA__" alt="" />
+                            <img src={data?.data?.data?.image[2]} alt="" />
                         </div>
                         <div className="img__item">
-                            <img src="https://s3-alpha-sig.figma.com/img/1421/901b/217b5f7ea72cbcd9ce3062c4165744e5?Expires=1711324800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=m1QQEGFC8EwxM4i1HcOMmHP36gB1JOoDtBIJrGuUu64t7BavECYf4~Pc0--4VKzCcGLD1kSNV6-Z9xl7PflKU0fMdoFnNnw3lNh4QCTWhrJIIRq3YYhKA9IhPpeWveuVw2FAC3SxtDGs483WExD68g7TtttSgc~XSZTjvIRmIYK8izMVRz2VZyVXSzBJQzKm9uS4w-G-lVSYN-5sC4pdwOCQ1893cfHkyiJ3KyM3KsLrdkGxRyCuOR5PfnpKu2jhaY5cMFcCaHwVycX1RB7O46vNy0rtz0SkmZ~CSjX3BnSSrqqSvvfv64HCV13KXFiPwaGdkuLisW6KZFzFBp82ag__" alt="" />
+                            <img src={data?.data?.data?.image[3]} alt="" />
                         </div>
                     </div>
                 </div>

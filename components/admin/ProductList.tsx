@@ -79,7 +79,6 @@ const ProductList = () => {
                                 </thead>
                                 <tbody>
                                     {
-
                                         data?.data.map((item: any, index: number) => (
                                             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -89,7 +88,7 @@ const ProductList = () => {
                                                     {item?.name}
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    <div className={`w-[40px] h-[40px] rounded-full border bg-[${item?.color}]`}></div>
+                                                    <div style={{backgroundColor : item?.color}} className={`w-[40px] h-[40px] rounded-full border`}></div>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <img
