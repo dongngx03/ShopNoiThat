@@ -6,8 +6,8 @@ import * as yup from 'yup';
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
-
-
+import { useQuery } from "@tanstack/react-query";
+import categoriesApi from "@/service/categoriesApi";
 
 export type TProduct = {
     name: string,
@@ -15,7 +15,8 @@ export type TProduct = {
     description: string,
     image: string,
     color: string,
-    quantity: number
+    quantity: number,
+    category_id: string
 }
 
 const AddProduct = () => {
@@ -25,7 +26,8 @@ const AddProduct = () => {
             price: yup.number().required().min(1000000).max(1000000000),
             description: yup.string().required().min(20),
             color: yup.string().required(),
-            quantity: yup.number().required().min(10)
+            quantity: yup.number().required().min(10),
+            category_id: yup.string().required()
 
         })
         .required()
@@ -39,6 +41,15 @@ const AddProduct = () => {
         },
         resolver: schema
     })
+
+    const { data } = useQuery({
+        queryKey: ["CATEGORY"],
+        queryFn: async () => {
+            return await categoriesApi.getAll();
+        }
+    })
+
+
 
     return (
         <div className="">
@@ -90,8 +101,7 @@ const AddProduct = () => {
                             <Label htmlFor="color">Color</Label>
                             <Input
                                 id="color"
-                                type="text"
-                                placeholder="color"
+                                type="color"
                                 {...register("color")}
                             />
                             {errors.color && <span className="text-xs text-red-600">{errors.color.message}</span>}
@@ -106,6 +116,23 @@ const AddProduct = () => {
                             />
                             {errors.quantity && <span className="text-xs text-red-600">{errors.quantity.message}</span>}
                         </div>
+                        <div className="relative z-0 w-full mb-5 group">
+                            <Label htmlFor="category">Category</Label>
+                            <select
+                                {...register("category_id")}
+                                id="category"
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            >
+                                <option selected value={""}>Choose a country</option>
+                                {
+                                    data?.list.map((item: any, index: number) => (
+                                        <option key={index} value={item?._id}>{item?.name}</option>
+                                    ))
+                                }
+                            </select>
+                            {errors.category_id && <span className="text-xs text-red-600">{errors.category_id.message}</span>}
+                        </div>
+
 
                         <Button>Add Product</Button>
                     </form>

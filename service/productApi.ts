@@ -15,7 +15,8 @@ export default class productApi {
     }
 
     public async getAll(_limit: number | undefined, _page: number | undefined): Promise<any> {
-        return await instance.get(`/common/product/get-product?_limit=${_limit}&_page=${_page}`)
+        const { data } =  await instance.get(`/common/product/get-product?_limit=${_limit}&_page=${_page}`)
+        return data
     }
 
     public async getDetail(id?: number | string | undefined) {

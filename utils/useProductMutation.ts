@@ -56,14 +56,15 @@ const useProductMutaition = ({ action, onSuccess, resolver }: { action: "CREATE"
             name: data.name,
             price: data.price,
             description: data.description,
-            img: imgUrlArray,
+            image: imgUrlArray,
             quantity: data.quantity,
-            color: data.color.split(",")
+            color: data.color,
+            category_id : data.category_id
         }
         console.log(newProduct);
         
         mutate(newProduct);
-        reset()
+        //reset()
     }
 
     return {

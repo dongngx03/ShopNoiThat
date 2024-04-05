@@ -1,6 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
 
-
 export interface Iproduct extends Document {
     name: string;
     price: number;
@@ -26,7 +25,8 @@ const productSchema: Schema = new mongoose.Schema(
             type: Array
         },
         color: {
-            type: Array
+            type: String,
+            required: true
         },
         quantity: {
             type: Number,
@@ -34,7 +34,7 @@ const productSchema: Schema = new mongoose.Schema(
         },
         category_id: {
             type: Schema.Types.ObjectId,
-            ref: "Categories"
+            ref: "Category"
         }
 
     },

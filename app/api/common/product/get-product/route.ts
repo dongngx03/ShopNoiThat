@@ -21,7 +21,7 @@ export async function GET(req: Request) {
             pageNumber = 1
         }
         const totalPage = totalProduct / perPage
-        const product = await Product.find({}).skip((pageNumber - 1) * perPage).limit(perPage);
+        const product = await Product.find({}).populate('category_id').skip((pageNumber - 1) * perPage).limit(perPage);
         if (product) return NextResponse.json({
             success: true,
             limit: perPage,

@@ -9,8 +9,9 @@ const productValid = Joi.object({
     price: Joi.number().required().empty().min(1000000).max(1000000000),
     description: Joi.string().required().empty().min(20),
     image: Joi.array().empty().required(),
-    color : Joi.array().empty().required(),
-    quantity : Joi.number().required().min(10)
+    color : Joi.string().empty().required(),
+    quantity : Joi.number().required().min(10),
+    category_id : Joi.string().required()
 })
 
 
