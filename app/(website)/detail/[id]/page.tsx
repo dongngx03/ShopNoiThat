@@ -8,6 +8,8 @@ import useProductQurey from "@/utils/useProductQuery"
 
 const DetailPage = ({ params }: { params: { id: string } }) => {
   const { data, isLoading } = useProductQurey(params.id)
+  console.log(data);
+  
   const more = useProductQurey(false, 4, 1)
   
   return (

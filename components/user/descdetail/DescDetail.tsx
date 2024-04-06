@@ -18,10 +18,10 @@ const DescDetail = ({ data } : { data: any}) => {
 
                     <div className="section-img">
                         <div className="img__item">
-                            <img src={data?.data?.data?.image[2]} alt="" />
+                            <img src={data?.data?.image[2]} alt="" />
                         </div>
                         <div className="img__item">
-                            <img src={data?.data?.data?.image[3]} alt="" />
+                            <img src={data?.data?.image[3]} alt="" />
                         </div>
                     </div>
                 </div>

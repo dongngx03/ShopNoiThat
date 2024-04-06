@@ -1,7 +1,10 @@
+'use client'
 import { formatNumberWithCommas } from "@/utils"
 import "./ProductDetail.css"
+import { useState } from "react"
 
 const ProductDetail = ({ data }: { data: any }) => {
+    const [quantity, setQuantity] = useState<number>(1)
     return (
         <div>
             <section className="productdetail">
@@ -9,7 +12,7 @@ const ProductDetail = ({ data }: { data: any }) => {
                     <div className="section-list-img">
                         <div className="img-list">
                             {
-                                data?.data?.data?.image.map((item: any, index: number) => (
+                                data?.data?.image.map((item: any, index: number) => (
                                     <div className="img-list__item ">
                                         <img src={item} alt="" />
                                     </div>
@@ -18,15 +21,15 @@ const ProductDetail = ({ data }: { data: any }) => {
 
                         </div>
                         <div className="img__main">
-                            <img src={data?.data?.data?.image[0]} alt="" />
+                            <img src={data?.data?.image[0]} alt="" />
                         </div>
                     </div>
 
                     <div className="section-list-infor">
-                        <span className="infor__title">{data?.data?.data?.name}</span>
+                        <span className="infor__title">{data?.data?.name}</span>
                         <span className="infor__price">
                             {
-                                formatNumberWithCommas(parseInt(data?.data?.data?.price))
+                                formatNumberWithCommas(parseInt(data?.data?.price))
                             }đ
                         </span>
                         <div className="infor-evaluate">
@@ -59,7 +62,7 @@ const ProductDetail = ({ data }: { data: any }) => {
                         </div>
 
                         <span className="infor__desc">
-                            { data?.data?.data?.description}
+                            {data?.data?.description}
                         </span>
 
                         <div className="infor-size">
@@ -84,7 +87,7 @@ const ProductDetail = ({ data }: { data: any }) => {
                                 color
                             </span>
                             <div className="color-list">
-                                <button style={{backgroundColor : data?.data?.data?.color}} className="color__item">
+                                <button style={{ backgroundColor: data?.data?.color }} className="color__item">
 
                                 </button>
                             </div>
@@ -92,9 +95,15 @@ const ProductDetail = ({ data }: { data: any }) => {
 
                         <div className="actions">
                             <div className="actions-quantity">
-                                <button>-</button>
-                                <input type="number" placeholder="1" />
-                                <button>+</button>
+                                <button onClick={() => {
+                                    if(quantity <=1){
+                                        setQuantity(1)
+                                    }else{
+                                        setQuantity(quantity - 1)
+                                    }
+                                }}>-</button>
+                                <input type="number" placeholder="1" value={quantity} />
+                                <button onClick={() => setQuantity(quantity + 1)}>+</button>
                             </div>
 
                             <div className="actions-addcart">

@@ -2,7 +2,8 @@
 import "./NavDetail.css"
 
 const NavDetail = ({ data }: { data: any }) => {
-
+    console.log(data);
+    
     return (
         <div>
             <nav className="navdetail">
@@ -19,7 +20,7 @@ const NavDetail = ({ data }: { data: any }) => {
                             </svg>
                         </div>
                         <div className="block__item2">
-                            <span>{data?.data?.data?.name}</span>
+                            <span>{data?.data?.name}</span>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,212 @@
+.banner {
+    width: 100%;
+    /* Width of the container div */
+    height: 316px;
+    /* Height of the container div */
+    overflow: hidden;
+    /* Hide the overflow of the image */
+    position: relative;
+
+    img {
+        max-width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        filter: blur(1.5px);
+    }
+
+    .banner-opacity {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.5);
+        /* Màu lớp phủ, 0.3 là độ mờ */
+        pointer-events: none;
+        /* Cho phép sự kiện đi qua lớp phủ */
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        span {
+            font-size: 48px;
+            font-weight: 500;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .banner-opacity__link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+
+            a {
+                font-size: 16px;
+                font-weight: 500;
+                text-decoration: none;
+                color: black
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 300;
+            }
+        }
+
+    }
+}
+
+/* cart */
+.cart {
+    .container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        grid-gap: 20px;
+
+        padding-top: 50px;
+        padding-bottom: 50px;
+
+        .list-cart {
+            width: 100%;
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                border-collapse: separate;
+                /* Đảm bảo các ô trong bảng không nằm chồng lên nhau */
+                border-spacing: 0 30px;
+
+                thead {
+                    width: 100%;
+                    height: 55px;
+                    background-color: #F9F1E7;
+
+                    tr {
+                        th {
+                            text-align: center;
+                            font-size: 16px;
+                            font-weight: 500;
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        
+                        >:nth-child(4){
+                            padding-left: 25px;
+                        }
+
+                        td {
+                            text-align: center;
+                           
+                            .product__image {
+                                width: 105px;
+                                height: 105px;
+                                overflow: hidden;
+                                position: relative;
+                                background-color: #F9F1E7;
+                                border-radius: 10px;
+
+                                img {
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: contain;
+                                }
+                            }
+
+                            .product__name {
+                                font-size: 16px;
+                                font-weight: 400;
+                                color: #9F9F9F;
+                            }
+                            .product__price {
+                                font-size: 16px;
+                                font-weight: 400;
+                                color: #9F9F9F;
+                            }
+                            .product__quantity{
+                                width: 32px;
+                                height: 32px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border: 1px solid #9F9F9F;
+                                border-radius: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .carttotal{
+            margin-top: 30px;
+            width: 100%;
+            height: 390px;
+            background-color: #F9F1E7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            .total__title{
+                font-size: 32px;
+                font-weight: 600;
+                margin-bottom: 40px;
+            }
+
+            .subtotal-price{
+                display: flex;
+                justify-content: space-between;
+                gap: 30px;
+                align-items: center;
+                .price__title{
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+
+                .price__real{
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: #9F9F9F;
+                }
+            }
+            .total-price{
+                display: flex;
+                justify-content: space-between;
+                gap: 30px;
+                align-items: center;
+                .price__title{
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+
+                .price__real{
+                    font-size: 20px;
+                    font-weight: 500;
+                    color: #B88E2F;
+                }
+            }
+
+            .btn-checkout{
+                width: 222px;
+                height: 59px;
+                border: 1px solid black;
+                border-radius: 15px;
+                background-color: #F9F1E7;
+                margin-top: 30px;
+                font-size: 20px;
+                font-weight: 400;
+            }
+            
+
+        }
+    }
+}
+
+/* end-cart */
