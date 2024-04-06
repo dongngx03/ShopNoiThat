@@ -8,7 +8,7 @@ export async function GET(req : Request, context: any) {
         const { params } = context
         const cartData = await Cart.find({
             user_id : params.id
-        })
+        }).populate('product_id')
         return NextResponse.json({
             data : cartData
         }, { status : 200})

@@ -7,6 +7,7 @@ export async function DELETE(req : Request, context: any) {
         await dbConnect()
         const { params } = context
         const cartData = await Cart.findByIdAndDelete(params.id)
+        if(cartData)
         return NextResponse.json({
             message : `xoa thanh cong cart id = ${params.id}`
         }, { status : 200})

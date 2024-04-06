@@ -3,9 +3,12 @@ import useProductQurey from "@/utils/useProductQuery"
 import "./ProductList.css"
 import { formatNumberWithCommas } from "@/utils"
 import Link from "next/link"
+import Loading from "@/components/loading/loading"
 
 const ProductList = () => {
     const { data, isLoading } = useProductQurey(false, 10, 1)
+
+    if (isLoading) return <><Loading /></>
 
     return (
         <div>

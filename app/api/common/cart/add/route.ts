@@ -23,8 +23,11 @@ export async function POST(req: Request) {
         }
         // kiểm tra 
         const checkCart = await Cart.findOne({
+            user_id : data.user_id,
             product_id: data.product_id
         })
+        console.log(checkCart);
+        
         if (checkCart) {
             await Cart.findByIdAndUpdate(checkCart._id, {
                 quantity: parseInt(checkCart.quantity) + parseInt(data.quantity)

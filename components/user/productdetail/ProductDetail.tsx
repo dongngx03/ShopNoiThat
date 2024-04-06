@@ -2,9 +2,29 @@
 import { formatNumberWithCommas } from "@/utils"
 import "./ProductDetail.css"
 import { useState } from "react"
+import { useMutation } from "@tanstack/react-query"
+import cartApi from "@/service/cartApi"
+import { toast } from "sonner"
 
 const ProductDetail = ({ data }: { data: any }) => {
     const [quantity, setQuantity] = useState<number>(1)
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (data) => {
+            return await cartApi.addCart(data)
+        },
+        onSuccess: () => {
+            toast("add product to cart successfully!", {
+                description: "Thêm sản phẩm vào giỏ thành công rồi bạn!",
+                action: {
+                    label: "Ẩn",
+                    onClick: () => console.log("Ẩn"),
+                },
+            })
+
+            window.location.href = "/cart"
+        }
+    })
     return (
         <div>
             <section className="productdetail">
@@ -96,18 +116,39 @@ const ProductDetail = ({ data }: { data: any }) => {
                         <div className="actions">
                             <div className="actions-quantity">
                                 <button onClick={() => {
-                                    if(quantity <=1){
+                                    if (quantity <= 1) {
                                         setQuantity(1)
-                                    }else{
+                                    } else {
                                         setQuantity(quantity - 1)
                                     }
                                 }}>-</button>
-                                <input type="number" placeholder="1" value={quantity} />
+                                <input type="number" value={quantity} />
                                 <button onClick={() => setQuantity(quantity + 1)}>+</button>
                             </div>
 
                             <div className="actions-addcart">
-                                <button>Add To Cart</button>
+                                <button onClick={() => {
+                                    if (localStorage.getItem('user')) {
+                                        const { role, _id }: { role: any, _id: any } = JSON.parse(localStorage.getItem("user") as any)
+                                        if (_id) {
+                                            mutate({
+                                                user_id: _id,
+                                                mainPrice: data?.data?.price,
+                                                quantity: quantity,
+                                                product_id: data?.data?._id
+                                            } as any)
+                                        }
+                                    } else {
+                                        toast("Bạn chưa đăng nhập, không thể thêm vào giỏ hàng ", {
+                                            description: "ra đăng nhập ",
+                                            action: {
+                                                label: "Đăng nhập",
+                                                onClick: () => window.location.href = "/sign-in",
+                                            },
+                                        })
+                                    }
+
+                                }}>Add To Cart</button>
                                 <button>+ Compare</button>
                             </div>
                         </div>
