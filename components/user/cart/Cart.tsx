@@ -7,17 +7,25 @@ import { formatNumberWithCommas } from "@/utils"
 import useCartMutation from "@/utils/useCartMutation"
 import { toast } from "sonner"
 import Loading from "@/components/loading/loading"
+import { useState } from "react"
+
 
 
 const Cart = () => {
+    const [subTotal, setSubTotal] = useState<number>(0)
     const user = JSON.parse(localStorage.getItem("user") as any)
     const queryClient = useQueryClient()
     const { data, isLoading } = useQuery({
         queryKey: ["CART"],
         queryFn: async () => {
-            return await cartApi.getCartOneUser(user._id)
+            const data = await cartApi.getCartOneUser(user._id)
+            setSubTotal(data?.data.reduce((total: any, curr: any) => total + curr?.mainPrice * curr?.quantity, 0))
+            return data
         }
     })
+
+    //console.log(data);
+    // const tt = data?.data.reduce((total: any, curr: any) => total + curr?.mainPrice * curr?.quantity, 0)
 
     const Increment = useCartMutation({
         action: "INCREMENT",
@@ -59,9 +67,10 @@ const Cart = () => {
         }
     })
 
+    console.log(subTotal);
+
+
     if (isLoading) return <><Loading /></>
-
-
     return (
         <div>
             <section className="banner">
@@ -175,7 +184,7 @@ const Cart = () => {
                                 subtotal
                             </span>
                             <span className="price__real">
-                                25.000.000đ
+                                {formatNumberWithCommas(subTotal)}đ
                             </span>
                         </div>
 
@@ -184,7 +193,7 @@ const Cart = () => {
                                 subtotal
                             </span>
                             <span className="price__real">
-                                25.000.000đ
+                                {formatNumberWithCommas(subTotal)}đ
                             </span>
                         </div>
 
