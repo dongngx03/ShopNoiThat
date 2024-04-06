@@ -2,7 +2,7 @@ import dbConnect from "@/app/lib/dbConnect";
 import Cart from "@/app/model/Cart";
 import { NextResponse } from "next/server";
 
-export async function PUT(req: Response, context: any) {
+export async function PUT(req: Request, context: any) {
     try {
         await dbConnect();
 
