@@ -1,3 +1,4 @@
+'use client'
 import "./BannerHome.css"
 
 const BannerHome = () => {

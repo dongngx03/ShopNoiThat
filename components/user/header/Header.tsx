@@ -4,6 +4,8 @@ import "./Header.css"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 import Cookies from "js-cookie"
+import { Avatar } from 'antd';
+
 
 
 const Header = () => {
@@ -13,6 +15,7 @@ const Header = () => {
         const data: any = localStorage.getItem('user');
         setUser(JSON.parse(data))
     }, [])
+   
 
     const Login = () => {
         window.location.href = "/sign-in"
@@ -50,7 +53,7 @@ const Header = () => {
                                     <Link href="/shop" className="main-menu__link">Shop</Link>
                                 </li>
                                 <li className="main-menu__item">
-                                    <Link href="" className="main-menu__link">About</Link>
+                                    <Link href="/blog/list" className="main-menu__link">News</Link>
                                 </li>
                                 <li className="main-menu__item">
                                     <Link href="" className="main-menu__link">Contact</Link>
@@ -59,15 +62,10 @@ const Header = () => {
                         </nav>
 
                         <div className="header-block">
-                            <div className="user">
-                                {
-                                    user && <span>{user?.name}</span>
-                                }
-                            </div>
                             <div className="search">
-                                <span><svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M23.4791 23.5L18.2096 18.257M21.1298 11.25C21.1298 13.8801 20.0779 16.4024 18.2054 18.2622C16.333 20.1219 13.7934 21.1667 11.1454 21.1667C8.49738 21.1667 5.95781 20.1219 4.08537 18.2622C2.21293 16.4024 1.16101 13.8801 1.16101 11.25C1.16101 8.61998 2.21293 6.09763 4.08537 4.2379C5.95781 2.37816 8.49738 1.33337 11.1454 1.33337C13.7934 1.33337 16.333 2.37816 18.2054 4.2379C20.0779 6.09763 21.1298 8.61998 21.1298 11.25V11.25Z" stroke="black" stroke-width="2" stroke-linecap="round" />
-                                </svg></span>
+                                {
+                                    user && <Avatar size={55}>{user?.name}</Avatar>
+                                }
                             </div>
                             <div className="cart">
                                 {
@@ -80,8 +78,12 @@ const Header = () => {
                             </div>
                             <div className="cart">
                                 {
-                                        user?.role ?
-                                        <Link href="/admin/product/list">ADMIN</Link>
+                                    user?.role ?
+                                        <Link href="/admin/product/list">
+                                            <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M1 5h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 1 0 0-2H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2Zm18 4h-1.424a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2h10.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Zm0 6H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 0 0 0 2h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Z" />
+                                            </svg>
+                                        </Link>
                                         : ""
                                 }
                             </div>

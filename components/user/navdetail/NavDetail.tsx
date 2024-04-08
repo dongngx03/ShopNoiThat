@@ -6,7 +6,7 @@ const NavDetail = ({ data }: { data: any }) => {
     
     return (
         <div>
-            <nav className="navdetail">
+            <nav className="navdetail ">
                 <div className="container">
                     <div className="navdetail-block">
                         <div className="block__item1">
