@@ -3,11 +3,13 @@
 import Loading from "@/components/loading/loading"
 import { Button } from "@/components/ui/button"
 import blogApi from "@/service/blogApi"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import Link from "next/link"
+import { toast } from "sonner"
 
 
 const AdminBlogList = () => {
+    const queryClient = useQueryClient()
     const { data, isLoading } = useQuery({
         queryKey: ["BLOG"],
         queryFn: async () => {
@@ -18,14 +20,27 @@ const AdminBlogList = () => {
             }
         }
     })
+    const deleteBlog = useMutation({
+        mutationFn: async (id: string) => {
+            try {
+                await blogApi.delete(id)
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        onSuccess: () => {
+            toast("delete blog successfully!")
+            queryClient.invalidateQueries({ queryKey: ['BLOG'] })
+        }
+    })
 
-    if (isLoading) return <>
-    <div className="p-4 sm:ml-64">
-      <div className="w-full h-screen relative overflow-auto  p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-        <Loading />
-      </div>
-    </div>
-  </>
+    if (isLoading || deleteBlog.isPending) return <>
+        <div className="p-4 sm:ml-64">
+            <div className="w-full h-screen relative overflow-auto  p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
+                <Loading />
+            </div>
+        </div>
+    </>
     return (
         <div>
             <div className="p-4 sm:ml-64">
@@ -65,19 +80,31 @@ const AdminBlogList = () => {
                                     data?.blog?.map((item: any, index: number) => (
                                         <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                { index +1}
+                                                {index + 1}
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <Link href={`/blog/detail/${item?._id}`}>{ item?.title}</Link>
+                                                <Link href={`/blog/detail/${item?._id}`}>{item?.title}</Link>
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                { item?.createdAt.split("T")[0]}
+                                                {item?.createdAt.split("T")[0]}
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                { item?.updatedAt.split("T")[0]}
+                                                {item?.updatedAt.split("T")[0]}
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <Button>delete</Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        toast("Xác nhận ?", {
+                                                            description: "Bạn chắc chắn muốn xóa bài viết này ",
+                                                            action: {
+                                                                label: "Xóa",
+                                                                onClick: () => deleteBlog.mutate(item?._id),
+                                                            },
+                                                        })
+                                                    }}
+                                                >
+                                                    delete
+                                                </Button>
                                             </th>
                                             <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <Button variant="secondary">update</Button>

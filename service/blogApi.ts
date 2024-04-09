@@ -13,6 +13,6 @@ export default class blogApi{
         return data
     }
     public static async delete(id: string) {
-        return await instance.delete(`/Admin/blog/detail/${id}`)
+        return await instance.delete(`/Admin/blog/delete/${id}`)
     }
 }
