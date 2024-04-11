@@ -8,6 +8,7 @@ import useCartMutation from "@/utils/useCartMutation"
 import { toast } from "sonner"
 import Loading from "@/components/loading/loading"
 import { useState } from "react"
+import Link from "next/link"
 
 
 
@@ -197,7 +198,12 @@ const Cart = () => {
                             </span>
                         </div>
 
-                        <button className="btn-checkout">Check Out</button>
+                        <button
+                            className="btn-checkout z-1"
+                            onClick={() => window.location.href = "/order"}
+                        >
+                            Checkout
+                        </button>
 
                     </div>
                 </div>
